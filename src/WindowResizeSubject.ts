@@ -22,6 +22,11 @@ export class WindowResizeSubject implements WindowResizeSubject {
     return this;
   }
 
+  deleteObservers() {
+    this._observers = new Map();
+    return this;
+  }
+
   notifyObservers(event: WindowResizeSubjectEvent) {
     this._observers.forEach((observer) => {
       observer(event);

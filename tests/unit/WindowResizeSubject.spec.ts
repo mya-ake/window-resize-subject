@@ -32,6 +32,19 @@ describe('WindowResizeSubject', () => {
     });
   });
 
+  describe('deleteObservers', () => {
+    it('observers are deleted', () => {
+      const mock = jest.fn();
+      const mock2 = jest.fn();
+      const subject = new WindowResizeSubject();
+      subject.addObserver('test', mock);
+      subject.addObserver('test2', mock);
+      subject.deleteObservers();
+      expect(subject['_observers'].get('test')).toBeUndefined();
+      expect(subject['_observers'].get('test2')).toBeUndefined();
+    });
+  });
+
   describe('notifyObservers', () => {
     it('observers are called', () => {
       const mock = jest.fn();
