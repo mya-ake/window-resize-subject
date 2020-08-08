@@ -1,6 +1,10 @@
-import type { WindowResizeObserver, WindowResizeSubjectEvent } from './type';
+import type {
+  Subject,
+  WindowResizeObserver,
+  WindowResizeSubjectEvent,
+} from './type';
 
-export class WindowResizeSubject implements WindowResizeSubject {
+export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
   private _observers: Map<string, WindowResizeObserver> = new Map();
   private _delay: number;
   private _timer: number | undefined;
