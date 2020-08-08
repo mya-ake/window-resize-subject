@@ -1,6 +1,6 @@
 {
   "name": "window-resize-subject",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "main": "dist/index.common.js",
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
