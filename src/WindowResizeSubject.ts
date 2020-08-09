@@ -11,7 +11,7 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
   private _subscribed = false;
   private _handler: () => void;
 
-  constructor({ delay = 50 } = {}) {
+  constructor({ delay = 33 } = {}) {
     this._delay = delay;
     this._handler = this._handleResize.bind(this);
   }

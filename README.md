@@ -119,7 +119,7 @@ subject.setDelay(100);
 ### `delay` (option)
 
 - type: `number`
-- default: `50`
+- default: `33`
 
 Changes the delay time for a resize event.
 
