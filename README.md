@@ -50,7 +50,7 @@ subejct.addObserver('name', observer).subscribe();
 
 - params:
   - name:
-    - type: `string`
+    - type: `string` | `Symbol`
   - observer:
     - type: `WindowResizeObserver`
       - details: `(event: { width: number, height: number }) => void`
@@ -91,7 +91,7 @@ subject.notifyObservers({ width: 800, height: 600 });
 
 - params:
   - name:
-    - type: `string`
+    - type: `string` | `Symbol`
 
 Deletes the specified Observer.
 

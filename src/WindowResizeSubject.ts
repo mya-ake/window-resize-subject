@@ -2,10 +2,11 @@ import type {
   Subject,
   WindowResizeObserver,
   WindowResizeSubjectEvent,
+  ObserverName,
 } from './type';
 
 export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
-  private _observers: Map<string, WindowResizeObserver> = new Map();
+  private _observers: Map<ObserverName, WindowResizeObserver> = new Map();
   private _delay: number;
   private _timer: number | undefined;
   private _subscribed = false;
@@ -16,12 +17,12 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
     this._handler = this._handleResize.bind(this);
   }
 
-  addObserver(name: string, observer: WindowResizeObserver) {
+  addObserver(name: ObserverName, observer: WindowResizeObserver) {
     this._observers.set(name, observer);
     return this;
   }
 
-  deleteObserver(name: string) {
+  deleteObserver(name: ObserverName) {
     this._observers.delete(name);
     return this;
   }
@@ -35,6 +36,7 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
     this._observers.forEach((observer) => {
       observer(event);
     });
+    return this;
   }
 
   subscribe() {
@@ -63,6 +65,7 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
 
   setDelay(delay: number) {
     this._delay = delay;
+    return this;
   }
 
   hasObserver(): boolean {
