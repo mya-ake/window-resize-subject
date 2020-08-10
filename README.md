@@ -114,6 +114,10 @@ Changes the delay time for a resize event.
 subject.setDelay(100);
 ```
 
+### hasObserver
+
+returns true if it has an observer.
+
 ## Options
 
 ### `delay` (option)
