@@ -11,14 +11,17 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
   private _timer: number | undefined;
   private _subscribed = false;
   private _handler: () => void;
+  private _currentEvent: WindowResizeSubjectEvent;
 
   constructor({ delay = 33 } = {}) {
     this._delay = delay;
     this._handler = this._handleResize.bind(this);
+    this._currentEvent = this._getEvent();
   }
 
   addObserver(name: ObserverName, observer: WindowResizeObserver) {
     this._observers.set(name, observer);
+    observer(this._currentEvent);
     return this;
   }
 
@@ -46,7 +49,6 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
     if (this._subscribed) {
       return this;
     }
-    this._update();
     window.addEventListener('resize', this._handler);
     window.addEventListener('orientationchange', this._handler);
     this._subscribed = true;
@@ -72,11 +74,24 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
     return this._observers.size > 0;
   }
 
-  private _update() {
-    this.notifyObservers({
+  private _getEvent(): WindowResizeSubjectEvent {
+    if (typeof window === 'undefined') {
+      return {
+        width: 0,
+        height: 0,
+      };
+    }
+
+    return {
       width: window.innerWidth,
       height: window.innerHeight,
-    });
+    };
+  }
+
+  private _update() {
+    const event = this._getEvent();
+    this.notifyObservers(event);
+    this._currentEvent = event;
   }
 
   private _handleResize() {
