@@ -27,7 +27,7 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
   }
 
   deleteObservers() {
-    this._observers = new Map();
+    this._observers.clear();
     return this;
   }
 
@@ -63,6 +63,10 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
 
   setDelay(delay: number) {
     this._delay = delay;
+  }
+
+  hasObserver(): boolean {
+    return this._observers.size > 0;
   }
 
   private _update() {

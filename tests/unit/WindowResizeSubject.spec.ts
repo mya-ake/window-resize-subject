@@ -162,4 +162,26 @@ describe('WindowResizeSubject', () => {
       subject.unsubscribe();
     });
   });
+
+  describe('hasObserver', () => {
+    it('initail value is false', () => {
+      const subject = new WindowResizeSubject();
+      expect(subject.hasObserver()).toBe(false);
+    });
+
+    it('has after adding an observer', () => {
+      const mock = jest.fn();
+      const subject = new WindowResizeSubject();
+      subject.addObserver('test', mock);
+      expect(subject.hasObserver()).toBe(true);
+    });
+
+    it('not has after adding and deleting', () => {
+      const mock = jest.fn();
+      const subject = new WindowResizeSubject();
+      subject.addObserver('test', mock);
+      subject.deleteObserver('test');
+      expect(subject.hasObserver()).toBe(false);
+    });
+  });
 });
