@@ -1,9 +1,11 @@
 export type Observer<Event = void> = (event: Event) => void;
 
+export type ObserverName = string | Symbol;
+
 export interface Subject<Event = void> {
-  addObserver(name: string, observer: Observer<Event>): this;
-  deleteObserver(name: string): this;
-  notifyObservers(event: Event): void;
+  addObserver(name: ObserverName, observer: Observer<Event>): this;
+  deleteObserver(name: ObserverName): this;
+  notifyObservers(event: Event): this;
   subscribe(): this;
   unsubscribe(): this;
 }

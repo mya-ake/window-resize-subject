@@ -20,6 +20,14 @@ describe('WindowResizeSubject', () => {
       subject.addObserver('test', mock);
       expect(subject['_observers'].get('test')).toBe(mock);
     });
+
+    it('observer is added using Symbol', () => {
+      const mock = jest.fn();
+      const subject = new WindowResizeSubject();
+      const symbol = Symbol('test');
+      subject.addObserver(symbol, mock);
+      expect(subject['_observers'].get(symbol)).toBe(mock);
+    });
   });
 
   describe('deleteObserver', () => {
@@ -30,6 +38,15 @@ describe('WindowResizeSubject', () => {
       subject.deleteObserver('test');
       expect(subject['_observers'].get('test')).toBeUndefined();
     });
+
+    it('observer is deleted using symbol', () => {
+      const mock = jest.fn();
+      const subject = new WindowResizeSubject();
+      const symbol = Symbol('test');
+      subject.addObserver(symbol, mock);
+      subject.deleteObserver(symbol);
+      expect(subject['_observers'].get(symbol)).toBeUndefined();
+    });
   });
 
   describe('deleteObservers', () => {
@@ -37,25 +54,27 @@ describe('WindowResizeSubject', () => {
       const mock = jest.fn();
       const mock2 = jest.fn();
       const subject = new WindowResizeSubject();
+      const symbol = Symbol('test');
       subject.addObserver('test', mock);
-      subject.addObserver('test2', mock);
+      subject.addObserver(symbol, mock);
       subject.deleteObservers();
       expect(subject['_observers'].get('test')).toBeUndefined();
-      expect(subject['_observers'].get('test2')).toBeUndefined();
+      expect(subject['_observers'].get(symbol)).toBeUndefined();
     });
   });
 
   describe('notifyObservers', () => {
     it('observers are called', () => {
-      const mock = jest.fn();
+      const observer1 = jest.fn();
       const observer2 = jest.fn();
       const subject = new WindowResizeSubject();
-      subject.addObserver('test', mock);
-      subject.addObserver('test2', observer2);
+      const symbol = Symbol('test');
+      subject.addObserver('test', observer1);
+      subject.addObserver(symbol, observer2);
 
       subject.notifyObservers({ width: 200, height: 100 });
 
-      expect(mock).toBeCalledWith({ width: 200, height: 100 });
+      expect(observer1).toBeCalledWith({ width: 200, height: 100 });
       expect(observer2).toBeCalledWith({ width: 200, height: 100 });
     });
   });
