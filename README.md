@@ -55,7 +55,8 @@ subejct.addObserver('name', observer).subscribe();
     - type: `WindowResizeObserver`
       - details: `(event: { width: number, height: number }) => void`
 
-Add observer.
+Add observer.  
+And called with the current window size.
 
 ```js
 subejct.addObserver('name', ({ width, height }) => {

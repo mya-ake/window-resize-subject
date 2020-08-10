@@ -28,6 +28,16 @@ describe('WindowResizeSubject', () => {
       subject.addObserver(symbol, mock);
       expect(subject['_observers'].get(symbol)).toBe(mock);
     });
+
+    it('observer is called', () => {
+      const mock = jest.fn();
+      const subject = new WindowResizeSubject();
+      subject.addObserver('test', mock);
+      expect(mock).toBeCalledWith({
+        width: expect.any(Number),
+        height: expect.any(Number),
+      });
+    });
   });
 
   describe('deleteObserver', () => {
@@ -97,15 +107,6 @@ describe('WindowResizeSubject', () => {
         'orientationchange',
         subject['_handler'],
       );
-      subject.unsubscribe();
-    });
-
-    it('update is called', () => {
-      const subject = new WindowResizeSubject();
-      // @ts-ignore
-      const spy = jest.spyOn(subject, '_update');
-      subject.subscribe();
-      expect(spy).toBeCalledTimes(1);
       subject.unsubscribe();
     });
 
