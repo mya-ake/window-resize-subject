@@ -3,6 +3,7 @@ import type {
   WindowResizeObserver,
   WindowResizeSubjectEvent,
   ObserverName,
+  WindowResizeSubjectOption,
 } from './type';
 
 export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
@@ -13,7 +14,8 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
   private _handler: () => void;
   private _currentEvent: WindowResizeSubjectEvent;
 
-  constructor({ delay = 33 } = {}) {
+  constructor(option?: WindowResizeSubjectOption) {
+    const { delay = 33 } = option ?? {};
     this._delay = delay;
     this._handler = this._handleResize.bind(this);
     this._currentEvent = this._getEvent();

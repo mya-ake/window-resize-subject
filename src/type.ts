@@ -15,3 +15,6 @@ export type WindowResizeSubjectEvent = {
   width: number;
   height: number;
 };
+export type WindowResizeSubjectOption = {
+  delay?: number;
+};
