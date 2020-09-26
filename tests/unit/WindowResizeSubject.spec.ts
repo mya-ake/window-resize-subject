@@ -29,13 +29,13 @@ describe('WindowResizeSubject', () => {
       expect(subject['_observers'].get(symbol)).toBe(mock);
     });
 
-    it('observer is called', () => {
+    it('observer is called with current window size', () => {
       const mock = jest.fn();
       const subject = new WindowResizeSubject();
       subject.addObserver('test', mock);
       expect(mock).toBeCalledWith({
-        width: expect.any(Number),
-        height: expect.any(Number),
+        width: window.innerWidth,
+        height: window.innerHeight,
       });
     });
   });
