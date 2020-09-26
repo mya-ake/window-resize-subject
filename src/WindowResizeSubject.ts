@@ -12,18 +12,16 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
   private _timer: number | undefined;
   private _subscribed = false;
   private _handler: () => void;
-  private _currentEvent: WindowResizeSubjectEvent;
 
   constructor(option?: WindowResizeSubjectOption) {
     const { delay = 33 } = option ?? {};
     this._delay = delay;
     this._handler = this._handleResize.bind(this);
-    this._currentEvent = this._getEvent();
   }
 
   addObserver(name: ObserverName, observer: WindowResizeObserver) {
     this._observers.set(name, observer);
-    observer(this._currentEvent);
+    observer(this._getEvent());
     return this;
   }
 
@@ -93,7 +91,6 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
   private _update() {
     const event = this._getEvent();
     this.notifyObservers(event);
-    this._currentEvent = event;
   }
 
   private _handleResize() {
