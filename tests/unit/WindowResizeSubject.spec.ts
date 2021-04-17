@@ -204,4 +204,20 @@ describe('WindowResizeSubject', () => {
       expect(subject.hasObserver()).toBe(false);
     });
   });
+
+  describe('dispatch', () => {
+    it('observer is called with window size', () => {
+      const observer = jest.fn();
+      const subject = new WindowResizeSubject();
+      subject.addObserver('test', observer);
+
+      observer.mockClear();
+      subject.dispatch();
+
+      expect(observer).toBeCalledWith({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    });
+  });
 });
