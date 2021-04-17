@@ -74,6 +74,11 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
     return this._observers.size > 0;
   }
 
+  dispatch() {
+    this._dispatch();
+    return this;
+  }
+
   private _getEvent(): WindowResizeSubjectEvent {
     if (typeof window === 'undefined') {
       return {
@@ -88,7 +93,7 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
     };
   }
 
-  private _update() {
+  private _dispatch() {
     const event = this._getEvent();
     this.notifyObservers(event);
   }
@@ -96,7 +101,7 @@ export class WindowResizeSubject implements Subject<WindowResizeSubjectEvent> {
   private _handleResize() {
     clearTimeout(this._timer);
     this._timer = setTimeout(() => {
-      this._update();
+      this._dispatch();
     }, this._delay);
   }
 }
