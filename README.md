@@ -119,6 +119,10 @@ subject.setDelay(100);
 
 returns true if it has an observer.
 
+### dispatch
+
+Dispatches the current window size.
+
 ## Options
 
 ### `delay` (option)
